@@ -1,24 +1,39 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { UserService } from './users.service';
 
 @Controller('users')
 export class UserController {
-  private userService: UserService;
-  constructor(userService: UserService) {
-    this.userService = userService;
+  constructor(private usersService: UserService) {}
+
+  @Post()
+  create(@Body() data: any) {
+    return this.usersService.create(data);
   }
   @Get()
   findAll() {
-    return this.userService.findAll();
+    //Chamar o service
+    return this.usersService.findAll();
   }
 
   @Get(':id')
-  findOneUser(@Param('id') id: string) {
-    return this.userService.findOne(parseInt(id));
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
   }
 
-  @Post()
-  create(@Body() user: { name: string; email: string }) {
-    return this.userService.createUser(user);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() data: any) {
+    return this.usersService.update(id, data);
+  }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }

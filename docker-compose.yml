@@ -3,8 +3,8 @@ services:
     image: postgres
     container_name: postgresdb
     environment:
-      POSTGRES_USER: pedrodb
-      POSTGRES_PASSWORD: drope007
+      POSTGRES_USER: amotur
+      POSTGRES_PASSWORD: amotur123
       POSTGRES_DB: nestdb
     ports:
       - '5432:5432'

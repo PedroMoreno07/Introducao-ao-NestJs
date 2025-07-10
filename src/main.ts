@@ -12,7 +12,15 @@ async function bootstrap() {
       'Documentação da API de usuários com NestJS + Prisma + Swagger',
     )
     .setVersion('1.0')
-    .addTag('users') // Tag opcional para categorizar as rotas
+    .addTag('users')
+    .addBearerAuth({// Esquema 
+      type: 'http',
+      scheme: 'bearer', // Define o tipo de autenticação como Bearer Token
+      bearerFormat: 'JWT', // Formato do token JWT 
+      name: 'Authorization', // Nome do cabeçalho de autenticação
+      in: 'header', // Localização do cabeçalho de autenticação
+      description: 'Insira o token JWT no formato "Bearer {token}"', 
+    }) // Tag opcional para categorizar as rotas
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

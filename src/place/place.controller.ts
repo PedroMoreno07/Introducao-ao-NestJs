@@ -100,7 +100,31 @@ export class PlaceController {
             },
         },
     })
-    @ApiResponse({ status: 200, description: 'Place atualizado com sucesso' })
+    @UseInterceptors(FileFieldsInterceptor([{ name: 'images', maxCount: 3 }]))
+    @ApiConsumes('multipart/form-data')
+    @ApiResponse({ status: 200, description: 'Place atualizado com sucesso.' })
+    @ApiBody({
+        description: 'Formulário com os dados opcionais para atualizar local.',
+        schema: {
+            type: 'object',
+            required: ['name', 'type', 'phone', 'latitude', 'longitude', 'images'],
+            properties: {
+                name: { type: 'string', example: 'Praça Central' },
+                type: { type: 'string', enum: ['RESTAURANTE', 'BAR', 'HOTEL'] },
+                phone: { type: 'string', example: '(88) 99999-9999' },
+                latitude: { type: 'number', example: -3.7327 },
+                longitude: { type: 'number', example: -38.5267 },
+                images: {
+                    type: 'array',
+                    items: {
+                        type: 'string',
+                        format: 'binary',
+                    },
+                    description: 'As novas imagens substitue as imagens antigas. Máximo de 3 imagens',
+                },
+            },
+        },
+    })
     async updatePlace(
         @Param('id') id: string,
         @Body() data: UpdatePlaceDto,

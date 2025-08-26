@@ -12,12 +12,17 @@ import { UserService } from './users.service';
 import { CreteUserDto } from './dto/create-user.dto';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard } from 'src/auth/jwt.guard';
+import { JwtAuthGuard } from '../auth/jwt.guard';
 import { AdminGuard } from 'src/auth/admin.guard';
 @UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private usersService: UserService) {}
+
+
+
+
+  //--------------------------------------------------------------------------------------------------------------------------//
   @ApiBearerAuth()
   @Get()
   @ApiOperation({

@@ -10,6 +10,7 @@ import {
     UseInterceptors,
     BadRequestException,
     Query,
+    NotFoundException,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { PlaceService } from './place.service';
